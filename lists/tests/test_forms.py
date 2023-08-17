@@ -13,5 +13,7 @@ class ItemFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors['text'],
-            ["You can't have an empty list item"]
+            ["You can't have an empty list item"]  
+            ## Django's default error message is "This field is required." 
+            ## and you can use it if you're in a hurry
         )

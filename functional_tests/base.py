@@ -1,9 +1,8 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 import time
 from selenium.common.exceptions import WebDriverException
-from unittest import skip
+
 
 MAX_WAIT = 10
 
