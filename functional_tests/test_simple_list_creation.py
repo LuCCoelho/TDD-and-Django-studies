@@ -1,5 +1,6 @@
 from .base import FunctionalTest
 from selenium import webdriver
+from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.common.keys import Keys
 
 class NewVisitorTest(FunctionalTest):  
@@ -59,7 +60,10 @@ class NewVisitorTest(FunctionalTest):
         ## We use a new browser session to make sure that no information
         ## of Edith's is coming through from cookies etc
         self.browser.quit()
-        self.browser = webdriver.Firefox()
+        opts = FirefoxOptions()
+        opts.add_argument("--headless")
+        self.browser = webdriver.Firefox(options=opts)
+
 
         # Francis visits the home page.  There is no sign of Edith's
         # list

@@ -1,5 +1,6 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver import FirefoxOptions
 import time
 from selenium.common.exceptions import WebDriverException
 
@@ -9,7 +10,9 @@ MAX_WAIT = 10
 class FunctionalTest(StaticLiveServerTestCase):
     
     def setUp(self):  
-        self.browser = webdriver.Firefox()
+        opts = FirefoxOptions()
+        opts.add_argument("--headless")
+        self.browser = webdriver.Firefox(options=opts)
        
     def tearDown(self):  
         self.browser.quit()
