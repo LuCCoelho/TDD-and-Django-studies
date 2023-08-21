@@ -1,6 +1,8 @@
-name: test_Django
+name: flake8_and_test_Django
 on: [pull_request, push] # activates the workflow when there is a push or pull request in the repo
+
 jobs:
+
   test_project:
     runs-on: ubuntu-20.04 # operating system your code will run on
     steps:
@@ -10,7 +12,8 @@ jobs:
           python-version: '3.6'
       - run: pip install -r requirements.txt # install all our dependencies for the project
       - run: python manage.py test
-  lint_project:
+
+  flake8:
     runs-on: ubuntu-20.04 # operating system your code will run on
     steps:
       - uses: actions/checkout@v2
