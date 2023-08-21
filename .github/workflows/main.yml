@@ -1,6 +1,8 @@
-name: test_Django
+name: flake8_and_test_Django
 on: [pull_request, push] # activates the workflow when there is a push or pull request in the repo
+
 jobs:
+
   test_project:
     runs-on: ubuntu-20.04 # operating system your code will run on
     steps:
@@ -10,3 +12,22 @@ jobs:
           python-version: '3.6'
       - run: pip install -r requirements.txt # install all our dependencies for the project
       - run: python manage.py test
+
+  flake8:
+    runs-on: ubuntu-20.04 # operating system your code will run on
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.6'
+      - run: python3.6 -m pip install flake8
+      - run: python3.6 -m flake8 ./functional_tests/test_layout_and_styling.py
+      - run: python3.6 -m flake8 ./functional_tests/test_list_item_validation.py
+      - run: python3.6 -m flake8 --extend-ignore E266 ./functional_tests/test_simple_list_creation.py
+      - run: python3.6 -m flake8 ./lists/apps.py
+      - run: python3.6 -m flake8 ./lists/forms.py
+      - run: python3.6 -m flake8 ./lists/models.py
+      - run: python3.6 -m flake8 ./lists/urls.py
+      - run: python3.6 -m flake8 ./lists/views.py
+      - run: python3.6 -m flake8 --extend-ignore E501 ./superlists/settings.py
+      - run: python3.6 -m flake8 ./superlists/urls.py
