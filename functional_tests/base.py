@@ -7,14 +7,15 @@ from selenium.common.exceptions import WebDriverException
 
 MAX_WAIT = 10
 
+
 class FunctionalTest(StaticLiveServerTestCase):
-    
-    def setUp(self):  
+
+    def setUp(self):
         opts = FirefoxOptions()
         opts.add_argument("--headless")
         self.browser = webdriver.Firefox(options=opts)
-       
-    def tearDown(self):  
+
+    def tearDown(self):
         self.browser.quit()
 
     def wait_for_row_in_list_table(self, row_text):
@@ -39,4 +40,3 @@ class FunctionalTest(StaticLiveServerTestCase):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.5)
-

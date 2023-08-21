@@ -3,17 +3,18 @@ from selenium import webdriver
 from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.common.keys import Keys
 
-class NewVisitorTest(FunctionalTest):  
 
-    def test_can_start_a_list_for_one_user(self):  
+class NewVisitorTest(FunctionalTest):
+
+    def test_can_start_a_list_for_one_user(self):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
         self.browser.get(self.live_server_url)
 
         # She notices the page title and header mention to-do lists
-        self.assertIn('To-Do', self.browser.title)  
+        self.assertIn('To-Do', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('To-Do', header_text) 
+        self.assertIn('To-Do', header_text)
 
         # She is invited to enter a to-do item straight away
         inputbox = self.browser.find_element_by_id('id_new_item')
@@ -32,14 +33,19 @@ class NewVisitorTest(FunctionalTest):
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
 
         # There is still a text box inviting her to add another item. She
-        # enters "Use peacock feathers to make a fly" (Edith is very methodical)
+        # enters "Use peacock feathers to make a fly" (Edith is very
+        # methodical)
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Use peacock feathers to make a fly')
         inputbox.send_keys(Keys.ENTER)
 
         # The page updates again, and now shows both items on her list
-        self.wait_for_row_in_list_table('1: Buy peacock feathers')
-        self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        self.wait_for_row_in_list_table(
+            '1: Buy peacock feathers'
+            )
+        self.wait_for_row_in_list_table(
+            '2: Use peacock feathers to make a fly'
+            )
 
         # Satisfied, she goes back to sleep
 
@@ -53,7 +59,7 @@ class NewVisitorTest(FunctionalTest):
 
         # She notices that her list has a unique URL
         edith_list_url = self.browser.current_url
-        self.assertRegex(edith_list_url, '/lists/.+')  
+        self.assertRegex(edith_list_url, '/lists/.+')
 
         # Now a new user, Francis, comes along to the site.
 
@@ -63,7 +69,6 @@ class NewVisitorTest(FunctionalTest):
         opts = FirefoxOptions()
         opts.add_argument("--headless")
         self.browser = webdriver.Firefox(options=opts)
-
 
         # Francis visits the home page.  There is no sign of Edith's
         # list
@@ -90,5 +95,3 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn('Buy milk', page_text)
 
         # Satisfied, they both go back to sleep
-
-
